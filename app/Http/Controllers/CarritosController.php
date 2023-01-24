@@ -27,7 +27,7 @@ class CarritosController extends Controller
     public function store(Request $request)
     {
         $carrito = new Carritos();
-        $carrito->_id = $request->id;
+        $carrito->_id = $request->_id;
         $carrito->idCliente = $request->idCliente;
         $carrito->pagado = $request->pagado;
         $carrito->articulos = $request->articulos;
@@ -45,7 +45,8 @@ class CarritosController extends Controller
      */
     public function show($id)
     {
-        //
+        $carrito=Carritos::get()->where('_id',$id);
+        return response()->json(['result'=>$carrito],200);
     }
 
     /**
@@ -57,7 +58,14 @@ class CarritosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cart = Carritos::where('_id',intval($id))->update([
+            'idCliente' => $request->idCliente,
+            'pagado' => $request->pagado,
+            'articulos' => $request->articulos,
+            'fechaCreacion' => $request->fechaCreacion,
+            ]
+        );      
+        return response()->json($cart,200);
     }
 
     /**
@@ -68,6 +76,8 @@ class CarritosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo($id);
+        Carritos::destroy(intval($id));
+        return response()->json(['message'=>"Deleted el elemento con $id"],200);
     }
 }
