@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
+use EMove\service\impl\UsuariosService;
+use EMove\service\IUsuariosService;
 use Illuminate\Http\Request;
 
 class UsuariosController extends Controller
 {
+    private IUsuariosService $servivio;
+
+    function __construct()
+    {
+        $this->servivio = new UsuariosService();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +23,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $users = Usuarios::all();
-        return response()->json($users,200);
+        return $this->servivio->all();
     }
 
     /**

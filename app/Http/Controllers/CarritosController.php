@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carritos;
+use EMove\service\ICarritosService;
+use EMove\service\impl\CarritosService;
 use Illuminate\Http\Request;
 
 class CarritosController extends Controller
 {
+
+    private ICarritosService $servicio;
+
+    function __construct()
+    {
+        $this->servicio = new CarritosService();
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $carritos = Carritos::all();
-        return response()->json($carritos,200);
+    public function index(){
+        return $this->servicio->all();
     }
 
     /**
@@ -26,15 +33,7 @@ class CarritosController extends Controller
      */
     public function store(Request $request)
     {
-        $carrito = new Carritos();
-        $carrito->_id = $request->_id;
-        $carrito->idCliente = $request->idCliente;
-        $carrito->pagado = $request->pagado;
-        $carrito->articulos = $request->articulos;
-        $carrito->fechaCreacion = $request->fechaCreacion;
-        $carrito->save();
-
-        return response()->json($carrito,201);
+        return $this->servicio->insert($request);
     }
 
     /**
@@ -45,8 +44,7 @@ class CarritosController extends Controller
      */
     public function show($id)
     {
-        $carrito=Carritos::get()->where('_id',$id);
-        return response()->json(['result'=>$carrito],200);
+        return $this->servicio->find($id);
     }
 
     /**
@@ -58,14 +56,7 @@ class CarritosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cart = Carritos::where('_id',intval($id))->update([
-            'idCliente' => $request->idCliente,
-            'pagado' => $request->pagado,
-            'articulos' => $request->articulos,
-            'fechaCreacion' => $request->fechaCreacion,
-            ]
-        );      
-        return response()->json($cart,200);
+        return $this->servicio->update($request,$id);
     }
 
     /**
@@ -76,8 +67,6 @@ class CarritosController extends Controller
      */
     public function destroy($id)
     {
-        echo($id);
-        Carritos::destroy(intval($id));
-        return response()->json(['message'=>"Deleted el elemento con $id"],200);
+        return $this->servicio->delete($id);
     }
 }

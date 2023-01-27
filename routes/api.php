@@ -25,3 +25,4 @@ Route::apiResource('ciudades', CiudadesController::class);
 Route::apiResource('carritos', CarritosController::class);
 Route::apiResource('usuarios', UsuariosController::class);
 Route::apiResource('descuentos', DescuentosController::class);
+

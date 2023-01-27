@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ciudades;
+use EMove\service\ICiudadesService;
+use EMove\service\impl\CiudadesService;
+
 
 class CiudadesController extends Controller
 {
+
+    private ICiudadesService $servivio;
+
+    function __construct()
+    {
+        $this->servivio = new CiudadesService();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +24,7 @@ class CiudadesController extends Controller
      */
     public function index()
     {
-        $ciudades = Ciudades::all();
-        return response()->json($ciudades,200);
+        return $this->servivio->all();
     }
 
     /**

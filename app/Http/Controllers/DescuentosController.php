@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Descuentos;
+
 use Illuminate\Http\Request;
+use EMove\service\IDescuentosService;
+use EMove\service\impl\DescuentosService;
 
 class DescuentosController extends Controller
 {
+    private IDescuentosService $servivio;
+
+    function __construct()
+    {
+        $this->servivio = new DescuentosService();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +23,7 @@ class DescuentosController extends Controller
      */
     public function index()
     {
-        $descuentos = Descuentos::all();
-        return response()->json($descuentos,200);
+        return $this->servivio->all();
     }
 
     /**
@@ -24,8 +32,7 @@ class DescuentosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
@@ -35,8 +42,7 @@ class DescuentosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         //
     }
 
@@ -47,8 +53,7 @@ class DescuentosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         //
     }
 
@@ -58,8 +63,7 @@ class DescuentosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         //
     }
 }
