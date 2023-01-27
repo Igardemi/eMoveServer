@@ -9,5 +9,5 @@ interface ICarritosDAO{
     public function findById(int $id): CarritosDTO;
     public function update(Request $request, $id): bool;
     public function delete(int $id): bool;
-    public function create(Request $request): bool;
+    public function create(Request $request);
 }

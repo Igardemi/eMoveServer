@@ -25,7 +25,7 @@ class CarritosService implements ICarritosService
         return $this->carritos->findById($id);
     }
 
-    public function insert(Request $request): bool
+    public function insert(Request $request)
     {
         return $this->carritos->create($request);
     }
