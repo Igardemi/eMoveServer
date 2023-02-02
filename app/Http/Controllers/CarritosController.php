@@ -22,7 +22,7 @@ class CarritosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return $this->servicio->all();
+        return response()->json($this->servicio->all(),200);
     }
 
     /**
@@ -33,7 +33,7 @@ class CarritosController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->servicio->insert($request);
+        return response()->json($this->servicio->insert($request),200);
     }
 
     /**
@@ -44,7 +44,7 @@ class CarritosController extends Controller
      */
     public function show($id)
     {
-        return $this->servicio->find($id);
+        return response()->json($this->servicio->find($id),200);
     }
 
     /**
@@ -56,7 +56,7 @@ class CarritosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->servicio->update($request,$id);
+        return response()->json($this->servicio->update($request,$id),200);
     }
 
     /**
@@ -67,6 +67,7 @@ class CarritosController extends Controller
      */
     public function destroy($id)
     {
-        return $this->servicio->delete($id);
+        return response()->json($this->servicio->delete($id),200);
+
     }
 }

@@ -22,16 +22,14 @@ class CarritosDAO implements ICarritosDAO{
         return $result;
     }
 
-    public function create(Request $request){
+    public function create(Request $request): bool{
         $carrito = new Carritos();
         $carrito->_id = $request->_id;
         $carrito->idCliente = $request->idCliente;
         $carrito->pagado = $request->pagado;
         $carrito->articulos = $request->articulos;
         $carrito->fechaCreacion = $request->fechaCreacion;
-        $carrito->save();
-
-        return $carrito;
+        return $carrito->save();
     }
 
     public function findById($id): CarritosDTO{
